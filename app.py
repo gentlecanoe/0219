@@ -38,7 +38,7 @@ def image_result():
 
 @app.route("/end",methods=["GET","POST"])
 def end():
-    global first_time
+    global first_time,r
     first_time=1
     return(render_template("end.html"))
     
