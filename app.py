@@ -6,7 +6,6 @@ import time
 app = Flask(__name__)
 os.environ["REPLICATE_API_TOKEN"]="r8_3YDbuDYyhisYMoWmwuATaWOtqDodMUV1FfH1w"
 
-
 r = ""
 first_time = 1
 
@@ -45,3 +44,4 @@ def end():
     
 if __name__ == "__main__":
     app.run()
+
