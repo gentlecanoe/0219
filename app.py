@@ -2,9 +2,14 @@ from flask import Flask,request,render_template
 import replicate
 import os
 import time
+from openai import OpenAI
+
+openai_api_key=os.environ["OPENAI_API_TOKEN"]="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"
+os.environ["REPLICATE_API_TOKEN"]="r8_3YDbuDYyhisYMoWmwuATaWOtqDodMUV1FfH1w"
+
+model =OpenAI(api_key=openai_api_key)
 
 app = Flask(__name__)
-os.environ["REPLICATE_API_TOKEN"]="r8_3YDbuDYyhisYMoWmwuATaWOtqDodMUV1FfH1w"
 
 r = ""
 first_time = 1
@@ -36,11 +41,30 @@ def image_result():
     time.sleep(10)
     return(render_template("image_result.html",r=r[0]))
 
+
+@app.route("/text_gpt",methods=["GET","POST"])
+def text_gpt():
+    return(render_template("text_gpt.html"))
+    
+@app.route("/text_result",methods=["GET","POST"])
+def text_result():
+    q = request.form.get("q")
+    r = model.chat.completions.create(
+        model="gpt-3.5-turbo",
+
+    messages=[{"role": "user", "content": q}]
+
+    )
+
+    time.sleep(5)
+    return(render_template("text_result.html",r=r.choices[0].message.content))
+
+
 @app.route("/end",methods=["GET","POST"])
 def end():
-    global first_time,r
+    global first_time
     first_time=1
-    return(render_template("end.html",r=r))
+    return(render_template("end.html"))
     
 if __name__ == "__main__":
     app.run()
