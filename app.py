@@ -29,7 +29,13 @@ def main():
 @app.route("/image_gpt",methods=["GET","POST"])
 def image_gpt():
     return(render_template("image_gpt.html"))
-    
+
+@app.route("/NTU",methods=["GET","POST"])
+def NTU():
+    return(render_template("NTU.html"))
+
+
+
 @app.route("/image_result",methods=["GET","POST"])
 def image_result():
     q = request.form.get("q")
