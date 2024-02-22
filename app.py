@@ -68,9 +68,9 @@ def text_result():
 
 @app.route("/end",methods=["GET","POST"])
 def end():
-    global first_time
+    global first_time,r
     first_time=1
-    return(render_template("end.html"))
+    return(render_template("end.html",r=r))
     
 if __name__ == "__main__":
     app.run()
